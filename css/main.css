@@ -267,6 +267,12 @@ hr {
 	height: 0;
 }
 
+.menu-text {
+	color: white;
+	font-family: "poppins-semibold", sans-serif;
+	font-size: 3rem;
+}
+
 /**
  * Lists - (_document-setup.scss)  
  * -------------------------------------------------------------------
@@ -1114,13 +1120,6 @@ header .logo a {
 	margin: 0;
 	padding: 0;
 	border: none;
-	font: 0/0 a;
-	text-shadow: none;
-	color: transparent;
-	width: 92px;
-	height: 15px;
-	background: url("../images/logo.png") no-repeat center;
-	background-size: 92px 15px;
 }
 
 /**
@@ -1294,7 +1293,7 @@ header .logo a {
  * ------------------------------------------------------------------- 
  */
 #intro {
-	background: #151515 url(../images/intro-bg.jpg) no-repeat center bottom;
+	background: #151515 url(../images/intro-bg2.jpeg) no-repeat center bottom;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	background-size: cover;
