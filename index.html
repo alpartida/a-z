@@ -29,7 +29,33 @@
    ================================================== -->
     <script src="js/modernizr.js"></script>
     <script src="js/pace.min.js"></script>
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LcFs_8pAAAAAK9lhG-HvjTUHnpLvZc-gvChkeHS"></script>
+    <script>
+      function updateSubmitButton() {
+        const form = document.getElementById("contactForm");
+        const submitButton = document.querySelector("#submitButton");
 
+        if (form.checkValidity()) {
+          submitButton.disabled = false;
+        } else {
+          submitButton.disabled = true;
+        }
+      }
+      function onClick(e) {
+        e.preventDefault();
+        const form = document.getElementById("contactForm");
+
+        const formData = new FormData(form);
+
+        grecaptcha.enterprise.ready(async () => {
+          const token = await grecaptcha.enterprise.execute(
+            "6LcFs_8pAAAAAK9lhG-HvjTUHnpLvZc-gvChkeHS",
+            { action: "CONTACT_FORM_SUBMIT" }
+          );
+          // add post request to endpoint to send email and perform server side valdiation.
+        });
+      }
+    </script>
     <!-- favicons
 	================================================== -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -128,7 +154,11 @@
           <h1>Let us introduce ourselves</h1>
 
           <div class="intro-info">
-            <img src="images/intro-bg1.jpg" alt="Profile Picture" />
+            <img
+              src="images/intro-bg1.jpg"
+              alt="Profile Picture"
+              loading="lazy"
+            />
 
             <p class="lead">
               Welcome to our corner of the digital universe! We're Alex and
@@ -438,6 +468,7 @@
                 <img
                   src="images/falls-fairchild.jpeg"
                   alt="Fairchild Tax Website"
+                  loading="lazy"
                 />
                 <a href="#modal-01" class="overlay">
                   <div class="folio-item-table">
@@ -458,6 +489,7 @@
                 <img
                   src="images/alexpicture.jpeg"
                   alt="Alex Partida Portfolio"
+                  loading="lazy"
                 />
                 <a href="#modal-02" class="overlay">
                   <div class="folio-item-table">
@@ -478,6 +510,7 @@
                 <img
                   src="images/tumbuddylogorainbowbutterfly.svg"
                   alt="Tum Buddy Logo"
+                  loading="lazy"
                 />
                 <a href="#modal-03" class="overlay">
                   <div class="folio-item-table">
@@ -495,7 +528,7 @@
 	            ============================================================= -->
             <div id="modal-01" class="popup-modal slider mfp-hide">
               <div class="media">
-                <img src="images/falls-fairchild.jpeg" alt="" />
+                <img src="images/falls-fairchild.jpeg" loading="lazy" alt="" />
               </div>
 
               <div class="description-box">
@@ -520,7 +553,7 @@
 
             <div id="modal-02" class="popup-modal slider mfp-hide">
               <div class="media">
-                <img src="images/alexpicture.jpeg" alt="" />
+                <img src="images/alexpicture.jpeg" loading="lazy" alt="" />
               </div>
 
               <div class="description-box">
@@ -547,7 +580,11 @@
 
             <div id="modal-03" class="popup-modal slider mfp-hide">
               <div class="media">
-                <img src="images/tumbuddylogorainbowbutterfly.svg" alt="" />
+                <img
+                  src="images/tumbuddylogorainbowbutterfly.svg"
+                  loading="lazy"
+                  alt=""
+                />
               </div>
 
               <div class="description-box">
@@ -783,7 +820,7 @@
       <div class="row contact-form">
         <div class="col-twelve">
           <!-- form -->
-          <form name="contactForm" id="contactForm" method="post" action="">
+          <form name="contactForm" id="contactForm">
             <fieldset>
               <div class="form-field">
                 <input
@@ -793,7 +830,8 @@
                   placeholder="Name"
                   value=""
                   minlength="2"
-                  required=""
+                  required
+                  onkeyup="updateSubmitButton()"
                 />
               </div>
               <div class="form-field">
@@ -803,7 +841,8 @@
                   id="contactEmail"
                   placeholder="Email"
                   value=""
-                  required=""
+                  required
+                  onkeyup="updateSubmitButton()"
                 />
               </div>
               <div class="form-field">
@@ -813,6 +852,7 @@
                   id="contactSubject"
                   placeholder="Subject"
                   value=""
+                  onkeyup="updateSubmitButton()"
                 />
               </div>
               <div class="form-field">
@@ -822,11 +862,19 @@
                   placeholder="message"
                   rows="10"
                   cols="50"
-                  required=""
+                  required
+                  onkeyup="updateSubmitButton()"
                 ></textarea>
               </div>
               <div class="form-field">
-                <button class="submitform">Submit</button>
+                <button
+                  class="submitform"
+                  onclick="onClick(event)"
+                  id="submitButton"
+                  disabled
+                >
+                  Submit
+                </button>
                 <div id="submit-loader">
                   <div class="text-loader">Sending...</div>
                   <div class="s-loader">
@@ -859,9 +907,7 @@
 
           <h5>Where to find us</h5>
 
-          <p>
-            Los Angeles, CA<br />
-          </p>
+          <p>Los Angeles, CA<br /></p>
         </div>
 
         <div class="col-four tab-full collapse">
@@ -884,9 +930,7 @@
 
           <h5>Call Us At</h5>
 
-          <p>
-            Phone: (562) 457-0664<br />
-          </p>
+          <p>Phone: (562) 457-0664<br /></p>
         </div>
       </div>
       <!-- /contact-info -->
