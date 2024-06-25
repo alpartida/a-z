@@ -2213,10 +2213,11 @@ header .logo a {
 #contact button.submitform:focus {
   background: #cc005f;
 }
-#contact button.submitform:disabled,
-#contact button.submitform[disabled] {
+#contact button.disabled,
+#contact button.disabled:hover {
   background-color: #cccccc;
   color: #666666;
+  cursor: default;
 }
 #message-warning,
 #message-success {
