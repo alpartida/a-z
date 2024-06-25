@@ -49,14 +49,32 @@
           return;
         }
 
-        const formData = new FormData(form);
+        const name = document.getElementById("contactName").value;
+        const email = document.getElementById("contactEmail").value;
+        const subject = document.getElementById("contactSubject").value;
+        const message = document.getElementById("contactMessage").value;
 
         grecaptcha.enterprise.ready(async () => {
           const token = await grecaptcha.enterprise.execute(
             "6LcFs_8pAAAAAK9lhG-HvjTUHnpLvZc-gvChkeHS",
             { action: "CONTACT_FORM_SUBMIT" }
           );
-          // add post request to endpoint to send email and perform server side valdiation.
+          const url =
+            "https://q62eq11zxk.execute-api.us-east-1.amazonaws.com/prod/form";
+          const data = {
+            name,
+            email,
+            subject,
+            message,
+            token,
+          };
+          fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
         });
       }
     </script>
@@ -863,7 +881,7 @@
                 <textarea
                   name="contactMessage"
                   id="contactMessage"
-                  placeholder="message"
+                  placeholder="Message"
                   rows="10"
                   cols="50"
                   required
