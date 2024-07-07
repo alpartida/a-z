@@ -73,7 +73,8 @@
                 "message-success"
               ).style.display = "block");
             })
-            .catch((_) => {
+            .catch((e) => {
+              console.log(e);
               const loader = (document.getElementById(
                 "submit-loader"
               ).style.display = "none");
