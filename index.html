@@ -14,7 +14,10 @@
     <link rel="stylesheet" href="css/vendor.css" />
     <script src="js/modernizr.js"></script>
     <script src="js/pace.min.js"></script>
-    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LcFs_8pAAAAAK9lhG-HvjTUHnpLvZc-gvChkeHS"></script>
+    <script
+      src="https://www.google.com/recaptcha/enterprise.js?render=6LcFs_8pAAAAAK9lhG-HvjTUHnpLvZc-gvChkeHS"
+      defer
+    ></script>
     <script>
       function updateSubmitButton() {
         const form = document.getElementById("contactForm");
@@ -33,6 +36,10 @@
         if (!form.reportValidity()) {
           return;
         }
+        const button = (document.getElementById("submitButton").style.display =
+          "none");
+        const loader = (document.getElementById("submit-loader").style.display =
+          "block");
         const name = document.getElementById("contactName").value;
         const email = document.getElementById("contactEmail").value;
         const subject = document.getElementById("contactSubject").value;
@@ -57,7 +64,28 @@
               "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
-          });
+          })
+            .then((_) => {
+              const loader = (document.getElementById(
+                "submit-loader"
+              ).style.display = "none");
+              const success = (document.getElementById(
+                "message-success"
+              ).style.display = "block");
+            })
+            .catch((_) => {
+              const loader = (document.getElementById(
+                "submit-loader"
+              ).style.display = "none");
+              const warning = (document.getElementById(
+                "message-warning"
+              ).style.display = "block");
+              setTimeout(() => {
+                alert(
+                  "Something went wrong. Please reload the page and try again."
+                );
+              }, 500);
+            });
         });
       }
     </script>
@@ -723,7 +751,9 @@
               </div>
             </fieldset>
           </form>
-          <div id="message-warning"></div>
+          <div id="message-warning">
+            Something went wrong. Please reload the page and try again.
+          </div>
           <div id="message-success">
             <i class="fa fa-check"></i>Your message was sent, thank you!<br />
           </div>

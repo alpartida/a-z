@@ -2229,7 +2229,8 @@ header .logo a {
   width: 100%;
 }
 #message-warning {
-  color: #fa0003;
+  color: #ff0077;
+  font-family: "poppins-bold";
 }
 #message-success {
   color: #ff0077;
