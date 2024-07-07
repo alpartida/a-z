@@ -144,7 +144,9 @@
           <a href="#"><i class="fa fa-facebook"></i></a>
         </li>
         <li>
-          <a href="https://www.behance.net/alexgpartida"><i class="fa fa-behance"></i></a>
+          <a href="https://www.behance.net/alexgpartida"
+            ><i class="fa fa-behance"></i
+          ></a>
         </li>
         <li>
           <a href="#"><i class="fa fa-instagram"></i></a>
@@ -785,7 +787,9 @@
               <a href="#"><i class="fa fa-facebook"></i></a>
             </li>
             <li>
-              <a href="https://www.behance.net/alexgpartida"><i class="fa fa-behance"></i></a>
+              <a href="https://www.behance.net/alexgpartida"
+                ><i class="fa fa-behance"></i
+              ></a>
             </li>
             <li>
               <a href="#"><i class="fa fa-instagram"></i></a>
@@ -807,17 +811,12 @@
     <script src="js/main.js"></script>
   </body>
   <script>
-    setTimeout(() => {
+    setInterval(() => {
       var containerProjects = $("#folio-wrapper");
-
-      containerProjects.imagesLoaded(function () {
-        console.log("LOADED");
-
-        containerProjects.masonry({
-          itemSelector: ".folio-item",
-          resize: true,
-        });
+      containerProjects.masonry({
+        itemSelector: ".folio-item",
+        resize: true,
       });
-    }, 1000);
+    }, 500);
   </script>
 </html>
