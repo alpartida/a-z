@@ -144,13 +144,7 @@
           <a href="#"><i class="fa fa-facebook"></i></a>
         </li>
         <li>
-          <a href="#"><i class="fa fa-behance"></i></a>
-        </li>
-        <li>
-          <a href="#"><i class="fa fa-twitter"></i></a>
-        </li>
-        <li>
-          <a href="#"><i class="fa fa-dribbble"></i></a>
+          <a href="https://www.behance.net/alexgpartida"><i class="fa fa-behance"></i></a>
         </li>
         <li>
           <a href="#"><i class="fa fa-instagram"></i></a>
@@ -201,7 +195,7 @@
             </li>
             <li>
               <strong>Email:</strong>
-              <span>inquires@atoz.codes</span>
+              <span>contact@atoz.codes</span>
             </li>
           </ul>
         </div>
@@ -791,13 +785,7 @@
               <a href="#"><i class="fa fa-facebook"></i></a>
             </li>
             <li>
-              <a href="#"><i class="fa fa-behance"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="fa fa-twitter"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="fa fa-dribbble"></i></a>
+              <a href="https://www.behance.net/alexgpartida"><i class="fa fa-behance"></i></a>
             </li>
             <li>
               <a href="#"><i class="fa fa-instagram"></i></a>
@@ -818,4 +806,18 @@
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
   </body>
+  <script>
+    setTimeout(() => {
+      var containerProjects = $("#folio-wrapper");
+
+      containerProjects.imagesLoaded(function () {
+        console.log("LOADED");
+
+        containerProjects.masonry({
+          itemSelector: ".folio-item",
+          resize: true,
+        });
+      });
+    }, 1000);
+  </script>
 </html>
