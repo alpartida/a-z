@@ -64,29 +64,28 @@
               "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
-          });
-
-          if (response.ok) {
-            const loader = (document.getElementById(
-              "submit-loader"
-            ).style.display = "none");
-            const success = (document.getElementById(
-              "message-success"
-            ).style.display = "block");
-          } else {
-            console.log(e.status);
-            const loader = (document.getElementById(
-              "submit-loader"
-            ).style.display = "none");
-            const warning = (document.getElementById(
-              "message-warning"
-            ).style.display = "block");
-            setTimeout(() => {
-              alert(
-                "Something went wrong. Please reload the page and try again."
-              );
-            }, 500);
-          }
+          })
+            .then((_) => {
+              const loader = (document.getElementById(
+                "submit-loader"
+              ).style.display = "none");
+              const success = (document.getElementById(
+                "message-success"
+              ).style.display = "block");
+            })
+            .catch((e) => {
+              const loader = (document.getElementById(
+                "submit-loader"
+              ).style.display = "none");
+              const warning = (document.getElementById(
+                "message-warning"
+              ).style.display = "block");
+              setTimeout(() => {
+                alert(
+                  "Something went wrong. Please reload the page and try again."
+                );
+              }, 500);
+            });
         });
       }
     </script>

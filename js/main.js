@@ -106,9 +106,6 @@
 	var containerProjects = $('#folio-wrapper');
 
 	containerProjects.imagesLoaded(function () {
-
-		console.log("LOADED")
-
 		containerProjects.masonry({
 			itemSelector: '.folio-item',
 			resize: true
