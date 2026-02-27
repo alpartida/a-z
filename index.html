@@ -1,822 +1,800 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>A+Z</title>
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1"
-    />
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="css/vendor.css" />
-    <script src="js/modernizr.js"></script>
-    <script src="js/pace.min.js"></script>
-    <script
-      src="https://www.google.com/recaptcha/enterprise.js?render=6LcFs_8pAAAAAK9lhG-HvjTUHnpLvZc-gvChkeHS"
-      defer
-    ></script>
-    <script>
-      function updateSubmitButton() {
-        const form = document.getElementById("contactForm");
-        const submitButton = document.querySelector("#submitButton");
 
-        if (form.checkValidity()) {
-          submitButton.classList.remove("disabled");
-        } else {
-          submitButton.classList.add("disabled");
-        }
+<head>
+  <meta charset="utf-8" />
+  <title>A+Z | Software Engineering & Web Development</title>
+  <meta name="description"
+    content="A+Z builds enterprise-grade software, stunning websites, and scalable cloud solutions. Google-experienced engineering meets creative web design." />
+  <meta name="author" content="Alex Partida & Zach Queen" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/vendor.css" />
+  <script src="js/modernizr.js"></script>
+  <script src="js/pace.min.js"></script>
+  <script src="https://www.google.com/recaptcha/enterprise.js?render=6LcFs_8pAAAAAK9lhG-HvjTUHnpLvZc-gvChkeHS"
+    defer></script>
+  <script>
+    function updateSubmitButton() {
+      const form = document.getElementById("contactForm");
+      const submitButton = document.querySelector("#submitButton");
+
+      if (form.checkValidity()) {
+        submitButton.classList.remove("disabled");
+      } else {
+        submitButton.classList.add("disabled");
       }
-      function onClick(e) {
-        e.preventDefault();
-        const form = document.getElementById("contactForm");
+    }
+    function onClick(e) {
+      e.preventDefault();
+      const form = document.getElementById("contactForm");
 
-        if (!form.reportValidity()) {
-          return;
-        }
-        const button = (document.getElementById("submitButton").style.display =
-          "none");
-        const loader = (document.getElementById("submit-loader").style.display =
-          "block");
-        const name = document.getElementById("contactName").value;
-        const email = document.getElementById("contactEmail").value;
-        const subject = document.getElementById("contactSubject").value;
-        const message = document.getElementById("contactMessage").value;
-        grecaptcha.enterprise.ready(async () => {
-          const token = await grecaptcha.enterprise.execute(
-            "6LcFs_8pAAAAAK9lhG-HvjTUHnpLvZc-gvChkeHS",
-            { action: "CONTACT_FORM_SUBMIT" }
-          );
-          const url =
-            "https://q62eq11zxk.execute-api.us-east-1.amazonaws.com/prod/form";
-          const data = {
-            name,
-            email,
-            subject,
-            message,
-            token,
-          };
-          const response = await fetch(url, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
+      if (!form.reportValidity()) {
+        return;
+      }
+      const button = (document.getElementById("submitButton").style.display =
+        "none");
+      const loader = (document.getElementById("submit-loader").style.display =
+        "block");
+      const name = document.getElementById("contactName").value;
+      const email = document.getElementById("contactEmail").value;
+      const subject = document.getElementById("contactSubject").value;
+      const message = document.getElementById("contactMessage").value;
+      grecaptcha.enterprise.ready(async () => {
+        const token = await grecaptcha.enterprise.execute(
+          "6LcFs_8pAAAAAK9lhG-HvjTUHnpLvZc-gvChkeHS",
+          { action: "CONTACT_FORM_SUBMIT" }
+        );
+        const url =
+          "https://q62eq11zxk.execute-api.us-east-1.amazonaws.com/prod/form";
+        const data = {
+          name,
+          email,
+          subject,
+          message,
+          token,
+        };
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((_) => {
+            const loader = (document.getElementById(
+              "submit-loader"
+            ).style.display = "none");
+            const success = (document.getElementById(
+              "message-success"
+            ).style.display = "block");
           })
-            .then((_) => {
-              const loader = (document.getElementById(
-                "submit-loader"
-              ).style.display = "none");
-              const success = (document.getElementById(
-                "message-success"
-              ).style.display = "block");
-            })
-            .catch((e) => {
-              const loader = (document.getElementById(
-                "submit-loader"
-              ).style.display = "none");
-              const warning = (document.getElementById(
-                "message-warning"
-              ).style.display = "block");
-              setTimeout(() => {
-                alert(
-                  "Something went wrong. Please reload the page and try again."
-                );
-              }, 500);
-            });
-        });
-      }
-    </script>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  </head>
-  <body id="top">
-    <header>
-      <div class="row">
-        <div class="top-bar">
-          <a class="menu-toggle" href="#"><span>Menu</span></a>
-          <div class="logo">
-            <a href="index.html"><p class="menu-text">A + Z</p></a>
-          </div>
-          <nav id="main-nav-wrap">
-            <ul class="main-navigation">
-              <li class="current">
-                <a class="smoothscroll" href="#intro" title="">Home</a>
-              </li>
-              <li><a class="smoothscroll" href="#about" title="">About</a></li>
-              <li>
-                <a class="smoothscroll" href="#resume" title="">Resume</a>
-              </li>
-              <li>
-                <a class="smoothscroll" href="#portfolio" title="">Portfolio</a>
-              </li>
-              <li>
-                <a class="smoothscroll" href="#services" title="">Services</a>
-              </li>
-              <li>
-                <a class="smoothscroll" href="#contact" title="">Contact</a>
-              </li>
-            </ul>
-          </nav>
+          .catch((e) => {
+            const loader = (document.getElementById(
+              "submit-loader"
+            ).style.display = "none");
+            const warning = (document.getElementById(
+              "message-warning"
+            ).style.display = "block");
+            setTimeout(() => {
+              alert(
+                "Something went wrong. Please reload the page and try again."
+              );
+            }, 500);
+          });
+      });
+    }
+  </script>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+</head>
+
+<body id="top">
+  <header>
+    <div class="row">
+      <div class="top-bar">
+        <a class="menu-toggle" href="#"><span>Menu</span></a>
+        <div class="logo">
+          <a href="index.html">
+            <p class="menu-text">A + Z</p>
+          </a>
         </div>
-      </div>
-    </header>
-    <section id="intro">
-      <div class="intro-overlay"></div>
-      <div class="intro-content">
-        <div class="row">
-          <div class="col-twelve">
-            <h5>Hello, World.</h5>
-            <h1>We're Alex and Zach Queen</h1>
-            <p class="intro-position">
-              <span>Web Developer</span>
-              <span>Software Engineer</span>
-            </p>
-            <a class="button stroke smoothscroll" href="#about" title=""
-              >More About Us</a
-            >
-          </div>
-        </div>
-      </div>
-      <ul class="intro-social">
-        <li>
-          <a href="#"><i class="fa fa-facebook"></i></a>
-        </li>
-        <li>
-          <a href="https://www.behance.net/alexgpartida"
-            ><i class="fa fa-behance"></i
-          ></a>
-        </li>
-        <li>
-          <a href="#"><i class="fa fa-instagram"></i></a>
-        </li>
-      </ul>
-    </section>
-    <section id="about">
-      <div class="row section-intro">
-        <div class="col-twelve">
-          <h5>About</h5>
-          <h1>Let us introduce ourselves</h1>
-          <div class="intro-info">
-            <img
-              src="images/intro-bg1.jpg"
-              alt="Profile Picture"
-              loading="lazy"
-            />
-            <p class="lead">
-              Welcome to our corner of the digital universe! We're Alex and
-              Zach, a dynamic duo of a web developer and software engineer
-              passionate about crafting seamless online experiences. With a
-              combined expertise spanning years in the industry, we specialize
-              in designing and developing captivating websites that not only
-              dazzle the eye but also deliver top-notch functionality. From
-              sleek landing pages to complex web applications, we thrive on
-              turning ideas into reality, one pixel at a time. Let's collaborate
-              and bring your digital dreams to life!
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="row about-content">
-        <div class="col-six tab-full">
-          <h3>Profile</h3>
-          <p>Talented professionals ready to help solve your problems!</p>
-          <ul class="info-list">
+        <nav id="main-nav-wrap">
+          <ul class="main-navigation">
+            <li class="current">
+              <a class="smoothscroll" href="#intro" title="">Home</a>
+            </li>
+            <li><a class="smoothscroll" href="#about" title="">About</a></li>
             <li>
-              <strong>Names:</strong>
-              <span>Alex Partida & Zach Queen</span>
+              <a class="smoothscroll" href="#resume" title="">Resume</a>
             </li>
             <li>
-              <strong>Jobs:</strong>
-              <span>Web Developer; Software Engineer</span>
+              <a class="smoothscroll" href="#portfolio" title="">Portfolio</a>
             </li>
             <li>
-              <strong>Website:</strong>
-              <span>www.atoz.codes</span>
+              <a class="smoothscroll" href="#services" title="">Services</a>
             </li>
             <li>
-              <strong>Email:</strong>
-              <span>contact@atoz.codes</span>
+              <a class="smoothscroll" href="#contact" title="">Contact</a>
             </li>
           </ul>
-        </div>
-        <div class="col-six tab-full">
-          <h3>Skills</h3>
-          <p>We have a wide range of skills to accomplish any task you need.</p>
-          <ul class="skill-bars">
-            <li>
-              <div class="progress percent90"><span>90%</span></div>
-              <strong>Adobe Creative Suite</strong>
-            </li>
-            <li>
-              <div class="progress percent85"><span>85%</span></div>
-              <strong>CSS3</strong>
-            </li>
-            <li>
-              <div class="progress percent85"><span>70%</span></div>
-              <strong>React</strong>
-            </li>
-            <li>
-              <div class="progress percent95"><span>95%</span></div>
-              <strong>Node.js</strong>
-            </li>
-            <li>
-              <div class="progress percent75"><span>75%</span></div>
-              <strong>AWS</strong>
-            </li>
-          </ul>
-        </div>
+        </nav>
       </div>
-      <div class="row button-section">
-        <div class="col-twelve">
-          <a href="#contact" title="Hire Me" class="button stroke smoothscroll"
-            >Hire Us</a
-          >
-        </div>
-      </div>
-    </section>
-    <section id="resume" class="grey-section">
-      <div class="row section-intro">
-        <div class="col-twelve">
-          <h5>Resume</h5>
-          <h1>More of our credentials.</h1>
-          <p class="lead">
-            We have a diveristy of experiences that we can bring to the table.
-            From web development to software engineering, we have the skills to
-            get the job done.
-          </p>
-        </div>
-      </div>
-      <div class="row resume-timeline">
-        <div class="col-twelve resume-header">
-          <h2>Work Experience</h2>
-        </div>
-        <div class="col-twelve">
-          <div class="timeline-wrap">
-            <div class="timeline-block">
-              <div class="timeline-ico">
-                <i class="fa fa-briefcase"></i>
-              </div>
-              <div class="timeline-header">
-                <h3>Teacher Assistant</h3>
-                <h4><em>Zach</em></h4>
-                <p>Nov 2019 - Apr 2020</p>
-              </div>
-              <div class="timeline-content">
-                <h4>Redwood Code Academy</h4>
-                <p>
-                  Coordinated instructional efforts and assisted classroom
-                  teachers with curriculum. Created “Whiteboard Sundays” and
-                  guided students through whiteboard exercises and the entire
-                  software development process through full-stack immersion.
-                  Provided guidance on foundational knowledge of development
-                  including Agile, Scrum, data structures and algorithms.
-                  Incorporated a wide variety of front-end/back-end tools
-                  including React, Redux, MongoDB and .NET Core.
-                </p>
-              </div>
-            </div>
-            <div class="timeline-block">
-              <div class="timeline-ico">
-                <i class="fa fa-briefcase"></i>
-              </div>
-              <div class="timeline-header">
-                <h3>Software Engineer</h3>
-                <h4><em>Zach</em></h4>
-                <p>May 2020 - Jan 2021</p>
-              </div>
-              <div class="timeline-content">
-                <h4>Zigzy</h4>
-                <p>
-                  Performed multiple front-end/back-end development functions on
-                  the consumer searchable real estate home search site Townify
-                  including building APIs, UIs and syncing large amounts of
-                  data. Created an optimized User Interface (UI) and visuals
-                  using Bootstrap, .NET and Angular. Incorporated MongoDB and
-                  Redis for data analytics and caching resulting in the speeding
-                  up of data delivery and enhancing user experience.
-                </p>
-              </div>
-            </div>
-            <div class="timeline-block">
-              <div class="timeline-ico">
-                <i class="fa fa-briefcase"></i>
-              </div>
-              <div class="timeline-header">
-                <h3>Frontend Developer</h3>
-                <h4><em>Alex</em></h4>
-                <p>May 2021 - Dec 2021</p>
-              </div>
-              <div class="timeline-content">
-                <h4>Investcloud</h4>
-                <p>
-                  InvestCloud is a global company specializing in digital
-                  platforms that enable the development of financial solutions,
-                  pre-integrated into the Cloud. The company offers on-demand
-                  client experiences and intuitive operations solutions using an
-                  ever-expanding library of modular apps, resulting in powerful
-                  products.
-                </p>
-              </div>
-            </div>
-            <div class="timeline-block">
-              <div class="timeline-ico">
-                <i class="fa fa-briefcase"></i>
-              </div>
-
-              <div class="timeline-header">
-                <h3>Web Developer</h3>
-                <h4><em>Alex</em></h4>
-                <p>Nov 2021 - Present</p>
-              </div>
-              <div class="timeline-content">
-                <h4>The Salt Lake Tribune</h4>
-                <p>
-                  Integrated 2 new audio playback features for reporters to use
-                  in articles. One feature was created and deployed in AWS
-                  Lambda function to integrate Spotify API to provide audio
-                  playback of Salt Lake Tribune podcasts. The second feature was
-                  created and deployed through S3 Bucket and Cloudfront
-                  Distribution to house and serve custom Salt Lake Tribune
-                  audio. Increased subscriber growth by 10% through creation and
-                  design of several new landing pages such as newsletter sign-up
-                  and new subscriber page Built story specific landing pages,
-                  more recently used MapBoxGL to create an interactive
-                  visualization of 16,000+ map data points corresponding to
-                  Latter-day Saints properties in America. Collaborated with
-                  project managers, creative teams, and reporters to deliver
-                  original, efficient solutions for delivering news to Utahns.
-                </p>
-              </div>
-            </div>
-            <div class="timeline-block">
-              <div class="timeline-ico">
-                <i class="fa fa-briefcase"></i>
-              </div>
-              <div class="timeline-header">
-                <h3>Software Development Consultant</h3>
-                <h4><em>Zach</em></h4>
-                <p>Jun 2021 - Jan 2021</p>
-              </div>
-              <div class="timeline-content">
-                <h4>Slalom</h4>
-                <p>
-                  As a software development consultant at Slalom, I leverage my
-                  expertise to collaborate closely with clients, delivering
-                  tailored solutions that drive business success. From
-                  architecting robust systems to implementing scalable
-                  applications, I help organizations optimize their technology
-                  infrastructure and achieve their strategic goals efficiently.
-                </p>
-              </div>
-            </div>
-            <div class="timeline-block">
-              <div class="timeline-ico">
-                <i class="fa fa-briefcase"></i>
-              </div>
-              <div class="timeline-header">
-                <h3>Software Engineer</h3>
-                <h4><em>Zach</em></h4>
-                <p>Jan 2021 - Present</p>
-              </div>
-              <div class="timeline-content">
-                <h4>Google</h4>
-                <p>
-                  As a software engineer at Google, I innovate and develop
-                  cutting-edge solutions that redefine technology's role in
-                  shaping the future. Leveraging advanced algorithms and
-                  scalable architectures, I contribute to Google's mission of
-                  organizing the world's information and making it universally
-                  accessible and useful.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="portfolio">
-      <div class="row section-intro">
-        <div class="col-twelve">
-          <h5>Portfolio</h5>
-          <h1>Check Out Some of Our Work</h1>
-          <p class="lead">
-            Explore our portfolio to see how we've brought ideas to life for
-            clients across various industries. From sleek websites to
-            eye-catching logos and engaging UX/UI designs, our work showcases
-            our commitment to creativity, quality, and client satisfaction.
-          </p>
-        </div>
-      </div>
-      <div class="row portfolio-content">
-        <div class="col-twelve">
-          <div id="folio-wrapper" class="block-1-2 block-mob-full stack">
-            <div class="bgrid folio-item">
-              <div class="item-wrap">
-                <img
-                  src="images/falls-fairchild.jpeg"
-                  alt="Fairchild Tax Website"
-                  loading="lazy"
-                />
-                <a href="#modal-01" class="overlay">
-                  <div class="folio-item-table">
-                    <div class="folio-item-cell">
-                      <h3 class="folio-title">Fairchild Tax Service</h3>
-                      <span class="folio-types">
-                        Web Design & Web Development
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <div class="bgrid folio-item">
-              <div class="item-wrap">
-                <img
-                  src="images/alexpicture.jpeg"
-                  alt="Alex Partida Portfolio"
-                  loading="lazy"
-                />
-                <a href="#modal-02" class="overlay">
-                  <div class="folio-item-table">
-                    <div class="folio-item-cell">
-                      <h3 class="folio-title">Alex Partida Portfolio</h3>
-                      <span class="folio-types">
-                        Web Design & Web Development
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <div class="bgrid folio-item">
-              <div class="item-wrap">
-                <img
-                  src="images/tumbuddylogorainbowbutterfly.svg"
-                  alt="Tum Buddy Logo"
-                  loading="lazy"
-                />
-                <a href="#modal-03" class="overlay">
-                  <div class="folio-item-table">
-                    <div class="folio-item-cell">
-                      <h3 class="folio-title">Tum Buddy</h3>
-                      <span class="folio-types"> Graphic Design </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <div id="modal-01" class="popup-modal slider mfp-hide">
-              <div class="media">
-                <img src="images/falls-fairchild.jpeg" loading="lazy" alt="" />
-              </div>
-              <div class="description-box">
-                <h4>Fairchild Tax Service</h4>
-                <p>
-                  We dedicated focused effort to build a user-friendly website
-                  for our a local tax preparer, emphasizing simplicity and
-                  enhanced client interaction. Our iterative approach ensured a
-                  seamless experience, exceeding expectations for both the Dr.
-                  Fairchild and his clients alike.
-                </p>
-
-                <div class="categories">Web Design & Web Development</div>
-              </div>
-
-              <div class="link-box">
-                <a href="https://www.fairchildtaxservice.com/">Visit</a>
-                <a href="#" class="popup-modal-dismiss">Close</a>
-              </div>
-            </div>
-            <div id="modal-02" class="popup-modal slider mfp-hide">
-              <div class="media">
-                <img src="images/alexpicture.jpeg" loading="lazy" alt="" />
-              </div>
-              <div class="description-box">
-                <h4>Alex Partida Portfolio</h4>
-                <p>
-                  A personal project of Alex's, she combined web design and
-                  development to craft a visually appealing and functional
-                  website. From conceptualization to implementation, she ensured
-                  a seamless user experience through intuitive navigation and
-                  responsive design. This project showcases showcases her skills
-                  in creating impactful digital experiences that resonate with
-                  users and make her design background shine.
-                </p>
-                <div class="categories">Web Design & Web Development</div>
-              </div>
-              <div class="link-box">
-                <a href="https://alexpartida.com/">Visit</a>
-                <a href="#" class="popup-modal-dismiss">Close</a>
-              </div>
-            </div>
-            <div id="modal-03" class="popup-modal slider mfp-hide">
-              <div class="media">
-                <img
-                  src="images/tumbuddylogorainbowbutterfly.svg"
-                  loading="lazy"
-                  alt=""
-                />
-              </div>
-              <div class="description-box">
-                <h4>Tum Buddy</h4>
-                <p>
-                  Alex crafted a logo that captures our customer's brand essence
-                  with thoughtful design and meaningful symbolism, ensuring it
-                  resonates uniquely with their audience. The customer came with
-                  sketches of her ideas and Alex brought them to life and even
-                  added some of her essence to a few renditions.
-                </p>
-                <div class="categories">Graphic Design</div>
-              </div>
-              <div class="link-box">
-                <a href="https://www.instagram.com/tumbuddy_official/">Visit</a>
-                <a href="#" class="popup-modal-dismiss">Close</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="services">
-      <div class="overlay"></div>
-      <div class="row section-intro">
-        <div class="col-twelve">
-          <h5>Services</h5>
-          <h1>What Can We Do For You?</h1>
-          <p class="lead">
-            Discover how we can elevate your brand with our tailored web
-            development and design solutions. From intuitive user interfaces to
-            impactful graphic design, we specialize in creating engaging digital
-            experiences that resonate with your audience and achieve your
-            business goals.
-          </p>
-        </div>
-      </div>
-      <div class="row services-content">
-        <div id="owl-slider" class="owl-carousel services-list">
-          <div class="service">
-            <span class="icon"><i class="icon-earth"></i></span>
-            <div class="service-content">
-              <h3>Web Design</h3>
-              <p class="desc">
-                Discover the power of personalized web design with A to Z.. With
-                a blend of creativity and technical expertise, we craft bespoke
-                websites tailored to your unique vision and brand identity. From
-                sleek layouts to immersive user experiences, we're here to
-                transform your online presence and drive real results. Let's
-                collaborate and elevate your digital presence together.
-              </p>
-            </div>
-          </div>
-          <div class="service">
-            <span class="icon"><i class="icon-window"></i></span>
-            <div class="service-content">
-              <h3>Web Development</h3>
-              <p class="desc">
-                At A to Z, we specialize in creating custom, responsive websites
-                that captivate users and drive results. From initial design to
-                seamless functionality across all devices, our expert team
-                ensures your online presence stands out. Whether you need a new
-                site, redesign, or ongoing maintenance, we're your trusted
-                partner for exceptional web development.
-              </p>
-            </div>
-          </div>
-          <div class="service">
-            <span class="icon"><i class="icon-toggles"></i></span>
-            <div class="service-content">
-              <h3>UI/UX Design</h3>
-              <p class="desc">
-                Our team combines creativity with strategic insights to create
-                interfaces that are intuitive, engaging, and visually appealing.
-                From wireframes to prototypes, we meticulously craft designs
-                that enhance usability and align with your brand’s identity.
-                Whether you're launching a new product or enhancing an existing
-                platform, our expertise ensures your users enjoy a seamless and
-                memorable interaction every time.
-              </p>
-            </div>
-          </div>
-          <div class="service">
-            <span class="icon"><i class="icon-image"></i></span>
-            <div class="service-content">
-              <h3>Graphic Design</h3>
-              <p class="desc">
-                We specialize in transforming concepts into compelling visual
-                stories through our graphic design expertise. From logos and
-                branding to marketing collateral and digital assets, Alex
-                delivers designs that captivate and resonate with your audience.
-                Whether you're starting a new venture or refreshing your brand,
-                we're dedicated to crafting impactful visuals that elevate your
-                identity and leave a lasting impression.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="stats" class="count-up">
+    </div>
+  </header>
+  <section id="intro">
+    <div class="intro-overlay"></div>
+    <div class="intro-content">
       <div class="row">
         <div class="col-twelve">
-          <div
-            class="block-1-6 block-s-1-3 block-tab-1-2 block-mob-full stats-list"
-          >
-            <div class="bgrid stat">
-              <div class="icon-part">
-                <i class="icon-pencil-ruler"></i>
-              </div>
-              <h3 class="stat-count">50</h3>
-              <h5 class="stat-title">Projects Completed</h5>
+          <h5>Hello, World.</h5>
+          <h1>We're Alex and Zach Queen</h1>
+          <p class="intro-position">
+            <span>Full-Stack Engineer</span>
+            <span>Web Developer</span>
+          </p>
+          <a class="button stroke smoothscroll" href="#about" title="">See What We Can Do</a>
+        </div>
+      </div>
+    </div>
+    <ul class="intro-social">
+      <li>
+        <a href="https://www.linkedin.com/in/zach-queen/"><i class="fa fa-linkedin"></i></a>
+      </li>
+      <li>
+        <a href="https://www.behance.net/alexgpartida"><i class="fa fa-behance"></i></a>
+      </li>
+    </ul>
+  </section>
+  <section id="about">
+    <div class="row section-intro">
+      <div class="col-twelve">
+        <h5>About</h5>
+        <h1>Let us introduce ourselves</h1>
+        <div class="intro-info">
+          <img src="images/intro-bg1.jpg" alt="Profile Picture" loading="lazy" />
+          <p class="lead">
+            Welcome to our corner of the digital universe! We're Alex and
+            Zach, a dynamic duo of a web developer and software engineer
+            passionate about crafting seamless online experiences. With a
+            combined expertise spanning years in the industry, we specialize
+            in designing and developing captivating websites that not only
+            dazzle the eye but also deliver top-notch functionality. From
+            sleek landing pages to complex web applications, we thrive on
+            turning ideas into reality, one pixel at a time. Let's collaborate
+            and bring your digital dreams to life!
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row about-content">
+      <div class="col-six tab-full">
+        <h3>Profile</h3>
+        <p>Talented professionals ready to help solve your problems!</p>
+        <ul class="info-list">
+          <li>
+            <strong>Names:</strong>
+            <span>Alex Partida & Zach Queen</span>
+          </li>
+          <li>
+            <strong>Jobs:</strong>
+            <span>Web Developer & Designer; Software Engineer</span>
+          </li>
+          <li>
+            <strong>Website:</strong>
+            <span>www.atoz.codes</span>
+          </li>
+          <li>
+            <strong>Email:</strong>
+            <span>contact@atoz.codes</span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-six tab-full">
+        <h3>Skills</h3>
+        <p>We have a wide range of skills to accomplish any task you need.</p>
+        <ul class="skill-bars">
+          <li>
+            <div class="progress percent95"><span>95%</span></div>
+            <strong>TypeScript / JavaScript</strong>
+          </li>
+          <li>
+            <div class="progress percent90"><span>90%</span></div>
+            <strong>React / Angular</strong>
+          </li>
+          <li>
+            <div class="progress percent90"><span>90%</span></div>
+            <strong>Node.js / .NET</strong>
+          </li>
+          <li>
+            <div class="progress percent85"><span>85%</span></div>
+            <strong>Cloud (AWS / GCP / Azure)</strong>
+          </li>
+          <li>
+            <div class="progress percent90"><span>90%</span></div>
+            <strong>System Design & Architecture</strong>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row button-section">
+      <div class="col-twelve">
+        <a href="#contact" title="Hire Me" class="button stroke smoothscroll">Hire Us</a>
+      </div>
+    </div>
+  </section>
+  <section id="resume" class="grey-section">
+    <div class="row section-intro">
+      <div class="col-twelve">
+        <h5>Resume</h5>
+        <h1>Our credentials speak for themselves.</h1>
+        <p class="lead">
+          From enterprise platforms at Google to healthcare mobile apps and creative
+          web experiences, we bring a depth of experience that's hard to find.
+        </p>
+      </div>
+    </div>
+    <div class="row resume-timeline">
+      <div class="col-twelve resume-header">
+        <h2>Work Experience</h2>
+      </div>
+      <div class="col-twelve">
+        <div class="timeline-wrap">
+          <div class="timeline-block">
+            <div class="timeline-ico">
+              <i class="fa fa-briefcase"></i>
             </div>
-            <div class="bgrid stat">
-              <div class="icon-part">
-                <i class="icon-users"></i>
-              </div>
-              <h3 class="stat-count">3</h3>
-              <h5 class="stat-title">Happy Clients</h5>
+            <div class="timeline-header">
+              <h3>Software Engineer</h3>
+              <h4><em>Zach</em></h4>
+              <p>2022 - Present</p>
             </div>
-            <div class="bgrid stat">
-              <div class="icon-part">
-                <i class="icon-badge"></i>
-              </div>
-              <h3 class="stat-count">1</h3>
-              <h5 class="stat-title">Awards Received</h5>
+            <div class="timeline-content">
+              <h4>Google</h4>
+              <p>
+                Architects and delivers large-scale platform integrations that drive
+                meaningful business impact. Leads cross-functional technical initiatives
+                spanning system design, API development, and full-stack engineering.
+                Builds measurement infrastructure and optimization tools used across
+                global teams, and mentors junior engineers to maintain high standards
+                of code quality and system reliability.
+              </p>
             </div>
-            <div class="bgrid stat">
-              <div class="icon-part">
-                <i class="icon-light-bulb"></i>
-              </div>
-              <h3 class="stat-count">100</h3>
-              <h5 class="stat-title">Crazy Ideas</h5>
+          </div>
+
+          <div class="timeline-block">
+            <div class="timeline-ico">
+              <i class="fa fa-heart"></i>
             </div>
-            <div class="bgrid stat">
-              <div class="icon-part">
-                <i class="icon-cup"></i>
-              </div>
-              <h3 class="stat-count">150</h3>
-              <h5 class="stat-title">Coffee Cups</h5>
+            <div class="timeline-header">
+              <h3>Volunteer Consultant</h3>
+              <h4><em>Zach</em></h4>
+              <p>2024</p>
             </div>
-            <div class="bgrid stat">
-              <div class="icon-part">
-                <i class="icon-clock"></i>
-              </div>
-              <h3 class="stat-count">200</h3>
-              <h5 class="stat-title">Hours</h5>
+            <div class="timeline-content">
+              <h4>The Salt Lake Tribune</h4>
+              <p>
+                Partnered with the web development team to create a legislative bill
+                tracker for public transparency. Designed the technical infrastructure
+                to integrate government APIs and built an intelligent summarization
+                layer using AI. Established robust engineering practices by setting up
+                unit and end-to-end tests, architected AWS infrastructure to power
+                multiple site features, and implemented a streamlined CI/CD pipeline.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-block">
+            <div class="timeline-ico">
+              <i class="fa fa-briefcase"></i>
+            </div>
+            <div class="timeline-header">
+              <h3>Web Developer</h3>
+              <h4><em>Alex</em></h4>
+              <p>Nov 2021 - Present</p>
+            </div>
+            <div class="timeline-content">
+              <h4>The Salt Lake Tribune</h4>
+              <p>
+                Integrated 2 new audio playback features for reporters to use
+                in articles. One feature was created and deployed in AWS
+                Lambda function to integrate Spotify API to provide audio
+                playback of Salt Lake Tribune podcasts. The second feature was
+                created and deployed through S3 Bucket and Cloudfront
+                Distribution to house and serve custom Salt Lake Tribune
+                audio. Increased subscriber growth by 10% through creation and
+                design of several new landing pages such as newsletter sign-up
+                and new subscriber page Built story specific landing pages,
+                more recently used MapBoxGL to create an interactive
+                visualization of 16,000+ map data points corresponding to
+                Latter-day Saints properties in America. Collaborated with
+                project managers, creative teams, and reporters to deliver
+                original, efficient solutions for delivering news to Utahns.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-block">
+            <div class="timeline-ico">
+              <i class="fa fa-briefcase"></i>
+            </div>
+            <div class="timeline-header">
+              <h3>Software Development Consultant</h3>
+              <h4><em>Zach</em></h4>
+              <p>2021 - 2022</p>
+            </div>
+            <div class="timeline-content">
+              <h4>Slalom</h4>
+              <p>
+                Worked with Hoag Hospital to deliver a first-of-its-kind primary care
+                experience through a React Native mobile application. Built features
+                including video consultations, provider messaging, tailored care plans,
+                and appointment scheduling — all powered by a serverless microservice
+                backend on AWS.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-block">
+            <div class="timeline-ico">
+              <i class="fa fa-briefcase"></i>
+            </div>
+            <div class="timeline-header">
+              <h3>Frontend Developer</h3>
+              <h4><em>Alex</em></h4>
+              <p>May 2021 - Dec 2021</p>
+            </div>
+            <div class="timeline-content">
+              <h4>Investcloud</h4>
+              <p>
+                InvestCloud is a global company specializing in digital
+                platforms that enable the development of financial solutions,
+                pre-integrated into the Cloud. The company offers on-demand
+                client experiences and intuitive operations solutions using an
+                ever-expanding library of modular apps, resulting in powerful
+                products.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-block">
+            <div class="timeline-ico">
+              <i class="fa fa-briefcase"></i>
+            </div>
+            <div class="timeline-header">
+              <h3>Full Stack Developer</h3>
+              <h4><em>Zach</em></h4>
+              <p>2020 - 2021</p>
+            </div>
+            <div class="timeline-content">
+              <h4>Lenox Financial</h4>
+              <p>
+                Architected and built a customer portal using .NET Core, Angular,
+                and Azure that transformed the loan experience. Created a real-time
+                messaging system connecting customers and loan officers, along with
+                document management and pipeline tracking features — all with
+                robust state management and a polished user interface.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-block">
+            <div class="timeline-ico">
+              <i class="fa fa-briefcase"></i>
+            </div>
+            <div class="timeline-header">
+              <h3>Software Engineer</h3>
+              <h4><em>Zach</em></h4>
+              <p>2020</p>
+            </div>
+            <div class="timeline-content">
+              <h4>Zigzy</h4>
+              <p>
+                Built full-stack features for Townify, a consumer real estate search
+                platform. Developed optimized user interfaces and integrated
+                high-performance data layers using MongoDB and Redis to dramatically
+                improve data delivery speed and the overall user experience.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-block">
+            <div class="timeline-ico">
+              <i class="fa fa-graduation-cap"></i>
+            </div>
+            <div class="timeline-header">
+              <h3>Teacher's Assistant</h3>
+              <h4><em>Zach</em></h4>
+              <p>2019 - 2020</p>
+            </div>
+            <div class="timeline-content">
+              <h4>Redwood Code Academy</h4>
+              <p>
+                Guided aspiring developers through full-stack immersion, from
+                fundamentals like data structures and algorithms to hands-on projects
+                with React, Node.js, MongoDB, and .NET. Created "Whiteboard Sundays"
+                to build problem-solving skills and foster a collaborative learning
+                environment.
+              </p>
             </div>
           </div>
         </div>
       </div>
-    </section>
-    <section id="contact">
-      <div class="row section-intro">
-        <div class="col-twelve">
-          <h5>Contact</h5>
-          <h1>We'd Love To Hear From You.</h1>
-          <p class="lead">
-            We value your input—reach out to us today and let's bring your
-            vision to life!
-          </p>
-        </div>
+    </div>
+  </section>
+  <section id="portfolio">
+    <div class="row section-intro">
+      <div class="col-twelve">
+        <h5>Portfolio</h5>
+        <h1>Check Out Some of Our Work</h1>
+        <p class="lead">
+          Explore our portfolio to see how we've brought ideas to life for
+          clients across various industries. From sleek websites to
+          eye-catching logos and engaging UX/UI designs, our work showcases
+          our commitment to creativity, quality, and client satisfaction.
+        </p>
       </div>
-      <div class="row contact-form">
-        <div class="col-twelve">
-          <form name="contactForm" id="contactForm">
-            <fieldset>
-              <div class="form-field">
-                <input
-                  name="contactName"
-                  type="text"
-                  id="contactName"
-                  placeholder="Name"
-                  value=""
-                  minlength="2"
-                  required
-                  onkeyup="updateSubmitButton()"
-                />
-              </div>
-              <div class="form-field">
-                <input
-                  name="contactEmail"
-                  type="email"
-                  id="contactEmail"
-                  placeholder="Email"
-                  value=""
-                  required
-                  onkeyup="updateSubmitButton()"
-                />
-              </div>
-              <div class="form-field">
-                <input
-                  name="contactSubject"
-                  type="text"
-                  id="contactSubject"
-                  placeholder="Subject"
-                  value=""
-                  onkeyup="updateSubmitButton()"
-                />
-              </div>
-              <div class="form-field">
-                <textarea
-                  name="contactMessage"
-                  id="contactMessage"
-                  placeholder="Message"
-                  rows="10"
-                  cols="50"
-                  required
-                  onkeyup="updateSubmitButton()"
-                ></textarea>
-              </div>
-              <div class="form-field">
-                <button
-                  class="submitform disabled"
-                  onclick="onClick(event)"
-                  id="submitButton"
-                >
-                  Submit
-                </button>
-                <div id="submit-loader">
-                  <div class="text-loader">Sending...</div>
-                  <div class="s-loader">
-                    <div class="bounce1"></div>
-                    <div class="bounce2"></div>
-                    <div class="bounce3"></div>
+    </div>
+    <div class="row portfolio-content">
+      <div class="col-twelve">
+        <div id="folio-wrapper" class="block-1-2 block-mob-full stack">
+          <div class="bgrid folio-item">
+            <div class="item-wrap">
+              <img src="images/falls-fairchild.jpeg" alt="Fairchild Tax Website" loading="lazy" />
+              <a href="#modal-01" class="overlay">
+                <div class="folio-item-table">
+                  <div class="folio-item-cell">
+                    <h3 class="folio-title">Fairchild Tax Service</h3>
+                    <span class="folio-types">
+                      Web Design & Web Development
+                    </span>
                   </div>
                 </div>
-              </div>
-            </fieldset>
-          </form>
-          <div id="message-warning">
-            Something went wrong. Please reload the page and try again.
+              </a>
+            </div>
           </div>
-          <div id="message-success">
-            <i class="fa fa-check"></i>Your message was sent, thank you!<br />
+          <div class="bgrid folio-item">
+            <div class="item-wrap">
+              <img src="images/alexpicture.jpeg" alt="Alex Partida Portfolio" loading="lazy" />
+              <a href="#modal-02" class="overlay">
+                <div class="folio-item-table">
+                  <div class="folio-item-cell">
+                    <h3 class="folio-title">Alex Partida Portfolio</h3>
+                    <span class="folio-types">
+                      Web Design & Web Development
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="bgrid folio-item">
+            <div class="item-wrap">
+              <img src="images/tumbuddylogorainbowbutterfly.svg" alt="Tum Buddy Logo" loading="lazy" />
+              <a href="#modal-03" class="overlay">
+                <div class="folio-item-table">
+                  <div class="folio-item-cell">
+                    <h3 class="folio-title">Tum Buddy</h3>
+                    <span class="folio-types"> Graphic Design </span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div id="modal-01" class="popup-modal slider mfp-hide">
+            <div class="media">
+              <img src="images/falls-fairchild.jpeg" loading="lazy" alt="" />
+            </div>
+            <div class="description-box">
+              <h4>Fairchild Tax Service</h4>
+              <p>
+                We dedicated focused effort to build a user-friendly website
+                for our a local tax preparer, emphasizing simplicity and
+                enhanced client interaction. Our iterative approach ensured a
+                seamless experience, exceeding expectations for both the Dr.
+                Fairchild and his clients alike.
+              </p>
+
+              <div class="categories">Web Design & Web Development</div>
+            </div>
+
+            <div class="link-box">
+              <a href="https://www.fairchildtaxservice.com/">Visit</a>
+              <a href="#" class="popup-modal-dismiss">Close</a>
+            </div>
+          </div>
+          <div id="modal-02" class="popup-modal slider mfp-hide">
+            <div class="media">
+              <img src="images/alexpicture.jpeg" loading="lazy" alt="" />
+            </div>
+            <div class="description-box">
+              <h4>Alex Partida Portfolio</h4>
+              <p>
+                A personal project of Alex's, she combined web design and
+                development to craft a visually appealing and functional
+                website. From conceptualization to implementation, she ensured
+                a seamless user experience through intuitive navigation and
+                responsive design. This project showcases showcases her skills
+                in creating impactful digital experiences that resonate with
+                users and make her design background shine.
+              </p>
+              <div class="categories">Web Design & Web Development</div>
+            </div>
+            <div class="link-box">
+              <a href="https://alexpartida.com/">Visit</a>
+              <a href="#" class="popup-modal-dismiss">Close</a>
+            </div>
+          </div>
+          <div id="modal-03" class="popup-modal slider mfp-hide">
+            <div class="media">
+              <img src="images/tumbuddylogorainbowbutterfly.svg" loading="lazy" alt="" />
+            </div>
+            <div class="description-box">
+              <h4>Tum Buddy</h4>
+              <p>
+                Alex crafted a logo that captures our customer's brand essence
+                with thoughtful design and meaningful symbolism, ensuring it
+                resonates uniquely with their audience. The customer came with
+                sketches of her ideas and Alex brought them to life and even
+                added some of her essence to a few renditions.
+              </p>
+              <div class="categories">Graphic Design</div>
+            </div>
+            <div class="link-box">
+              <a href="https://www.instagram.com/tumbuddy_official/">Visit</a>
+              <a href="#" class="popup-modal-dismiss">Close</a>
+            </div>
           </div>
         </div>
       </div>
-      <div class="row contact-info">
-        <div class="col-four tab-full">
-          <div class="icon">
-            <i class="icon-pin"></i>
-          </div>
-          <h5>Where to find us</h5>
-          <p>Los Angeles, CA<br /></p>
-        </div>
-        <div class="col-four tab-full collapse">
-          <div class="icon">
-            <i class="icon-mail"></i>
-          </div>
-          <h5>Email Us At</h5>
-          <p>contact@atoz.codes</p>
-        </div>
-        <div class="col-four tab-full">
-          <div class="icon">
-            <i class="icon-phone"></i>
-          </div>
-          <h5>Call Us At</h5>
-          <p>Phone: (562) 457-0664<br /></p>
-        </div>
-      </div>
-    </section>
-    <footer>
-      <div class="row">
-        <div class="col-six tab-full pull-right social">
-          <ul class="footer-social">
-            <li>
-              <a href="#"><i class="fa fa-facebook"></i></a>
-            </li>
-            <li>
-              <a href="https://www.behance.net/alexgpartida"
-                ><i class="fa fa-behance"></i
-              ></a>
-            </li>
-            <li>
-              <a href="#"><i class="fa fa-instagram"></i></a>
-            </li>
-          </ul>
-        </div>
-        <div id="go-top">
-          <a class="smoothscroll" title="Back to Top" href="#top"
-            ><i class="fa fa-long-arrow-up"></i
-          ></a>
-        </div>
-      </div>
-    </footer>
-    <div id="preloader">
-      <div id="loader"></div>
     </div>
-    <script src="js/jquery-2.1.3.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
-  </body>
-  <script>
-    setInterval(() => {
-      var containerProjects = $("#folio-wrapper");
-      containerProjects.masonry({
-        itemSelector: ".folio-item",
-        resize: true,
-      });
-    }, 500);
-  </script>
+  </section>
+  <section id="services">
+    <div class="overlay"></div>
+    <div class="row section-intro">
+      <div class="col-twelve">
+        <h5>Services</h5>
+        <h1>What Can We Do For You?</h1>
+        <p class="lead">
+          Discover how we can elevate your brand with our tailored web
+          development and design solutions. From intuitive user interfaces to
+          impactful graphic design, we specialize in creating engaging digital
+          experiences that resonate with your audience and achieve your
+          business goals.
+        </p>
+      </div>
+    </div>
+    <div class="row services-content">
+      <div id="owl-slider" class="owl-carousel services-list">
+        <div class="service">
+          <span class="icon"><i class="icon-earth"></i></span>
+          <div class="service-content">
+            <h3>Web Design</h3>
+            <p class="desc">
+              Discover the power of personalized web design with A to Z.. With
+              a blend of creativity and technical expertise, we craft bespoke
+              websites tailored to your unique vision and brand identity. From
+              sleek layouts to immersive user experiences, we're here to
+              transform your online presence and drive real results. Let's
+              collaborate and elevate your digital presence together.
+            </p>
+          </div>
+        </div>
+        <div class="service">
+          <span class="icon"><i class="icon-window"></i></span>
+          <div class="service-content">
+            <h3>Web Development</h3>
+            <p class="desc">
+              From marketing sites to full-stack web applications, we build with the
+              same tools and standards used at the world's top tech companies.
+              Our sites are fast, responsive, accessible, and built to scale — whether
+              you're a startup launching your first product or an enterprise
+              modernizing your platform.
+            </p>
+          </div>
+        </div>
+        <div class="service">
+          <span class="icon"><i class="icon-toggles"></i></span>
+          <div class="service-content">
+            <h3>UI/UX Design</h3>
+            <p class="desc">
+              Great products start with great design. We create intuitive interfaces
+              grounded in user research and modern design principles. From wireframes
+              and prototypes to polished production designs, we ensure every
+              interaction feels effortless and every screen drives your users toward
+              their goals.
+            </p>
+          </div>
+        </div>
+        <div class="service">
+          <span class="icon"><i class="icon-image"></i></span>
+          <div class="service-content">
+            <h3>Graphic Design</h3>
+            <p class="desc">
+              Your brand deserves visuals that make an impact. Alex brings years of
+              design expertise to craft logos, brand identities, marketing materials,
+              and digital assets that tell your story with clarity and style. Every
+              piece is thoughtfully designed to resonate with your audience and
+              elevate your brand.
+            </p>
+          </div>
+        </div>
+        <div class="service">
+          <span class="icon"><i class="icon-tools"></i></span>
+          <div class="service-content">
+            <h3>Software Engineering</h3>
+            <p class="desc">
+              Need more than a website? We architect and build scalable software
+              solutions — from cloud-native APIs and microservice backends to
+              data pipelines and mobile applications. With experience spanning
+              Google, AWS, Azure, and GCP, we bring enterprise-grade engineering
+              to projects of any size.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="stats" class="count-up">
+    <div class="row">
+      <div class="col-twelve">
+        <div class="block-1-6 block-s-1-3 block-tab-1-2 block-mob-full stats-list">
+          <div class="bgrid stat">
+            <div class="icon-part">
+              <i class="icon-pencil-ruler"></i>
+            </div>
+            <h3 class="stat-count">100</h3>
+            <h5 class="stat-title">Projects Completed</h5>
+          </div>
+          <div class="bgrid stat">
+            <div class="icon-part">
+              <i class="icon-users"></i>
+            </div>
+            <h3 class="stat-count">10</h3>
+            <h5 class="stat-title">Happy Clients</h5>
+          </div>
+          <div class="bgrid stat">
+            <div class="icon-part">
+              <i class="icon-badge"></i>
+            </div>
+            <h3 class="stat-count">6</h3>
+            <h5 class="stat-title">Years Experience</h5>
+          </div>
+          <div class="bgrid stat">
+            <div class="icon-part">
+              <i class="icon-light-bulb"></i>
+            </div>
+            <h3 class="stat-count">1000</h3>
+            <h5 class="stat-title">Crazy Ideas</h5>
+          </div>
+          <div class="bgrid stat">
+            <div class="icon-part">
+              <i class="icon-cup"></i>
+            </div>
+            <h3 class="stat-count">1500</h3>
+            <h5 class="stat-title">Coffee Cups</h5>
+          </div>
+          <div class="bgrid stat">
+            <div class="icon-part">
+              <i class="icon-clock"></i>
+            </div>
+            <h3 class="stat-count">10000</h3>
+            <h5 class="stat-title">Hours Coded</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="contact">
+    <div class="row section-intro">
+      <div class="col-twelve">
+        <h5>Contact</h5>
+        <h1>We'd Love To Hear From You.</h1>
+        <p class="lead">
+          We value your input—reach out to us today and let's bring your
+          vision to life!
+        </p>
+      </div>
+    </div>
+    <div class="row contact-form">
+      <div class="col-twelve">
+        <form name="contactForm" id="contactForm">
+          <fieldset>
+            <div class="form-field">
+              <input name="contactName" type="text" id="contactName" placeholder="Name" value="" minlength="2" required
+                onkeyup="updateSubmitButton()" />
+            </div>
+            <div class="form-field">
+              <input name="contactEmail" type="email" id="contactEmail" placeholder="Email" value="" required
+                onkeyup="updateSubmitButton()" />
+            </div>
+            <div class="form-field">
+              <input name="contactSubject" type="text" id="contactSubject" placeholder="Subject" value=""
+                onkeyup="updateSubmitButton()" />
+            </div>
+            <div class="form-field">
+              <textarea name="contactMessage" id="contactMessage" placeholder="Message" rows="10" cols="50" required
+                onkeyup="updateSubmitButton()"></textarea>
+            </div>
+            <div class="form-field">
+              <button class="submitform disabled" onclick="onClick(event)" id="submitButton">
+                Submit
+              </button>
+              <div id="submit-loader">
+                <div class="text-loader">Sending...</div>
+                <div class="s-loader">
+                  <div class="bounce1"></div>
+                  <div class="bounce2"></div>
+                  <div class="bounce3"></div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+        <div id="message-warning">
+          Something went wrong. Please reload the page and try again.
+        </div>
+        <div id="message-success">
+          <i class="fa fa-check"></i>Your message was sent, thank you!<br />
+        </div>
+      </div>
+    </div>
+    <div class="row contact-info">
+      <div class="col-four tab-full">
+        <div class="icon">
+          <i class="icon-pin"></i>
+        </div>
+        <h5>Where to find us</h5>
+        <p>Irvine, CA<br /></p>
+      </div>
+      <div class="col-four tab-full collapse">
+        <div class="icon">
+          <i class="icon-mail"></i>
+        </div>
+        <h5>Email Us At</h5>
+        <p>contact@atoz.codes</p>
+      </div>
+      <div class="col-four tab-full">
+        <div class="icon">
+          <i class="icon-phone"></i>
+        </div>
+        <h5>Call Us At</h5>
+        <p>Phone: (562) 457-0664<br /></p>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="row">
+      <div class="col-six tab-full pull-right social">
+        <ul class="footer-social">
+          <li>
+            <a href="https://www.linkedin.com/in/zach-queen/"><i class="fa fa-linkedin"></i></a>
+          </li>
+          <li>
+            <a href="https://www.behance.net/alexgpartida"><i class="fa fa-behance"></i></a>
+          </li>
+        </ul>
+      </div>
+      <div id="go-top">
+        <a class="smoothscroll" title="Back to Top" href="#top"><i class="fa fa-long-arrow-up"></i></a>
+      </div>
+    </div>
+  </footer>
+  <div id="preloader">
+    <div id="loader"></div>
+  </div>
+  <script src="js/jquery-2.1.3.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+</body>
+<script>
+  setInterval(() => {
+    var containerProjects = $("#folio-wrapper");
+    containerProjects.masonry({
+      itemSelector: ".folio-item",
+      resize: true,
+    });
+  }, 500);
+</script>
+
 </html>
