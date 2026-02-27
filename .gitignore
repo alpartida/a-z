@@ -1,3 +1,4 @@
 .*
 !/.gitignore
 !/.htmlhintrc
+node_modules/
